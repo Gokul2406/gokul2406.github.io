@@ -14,30 +14,33 @@ import {
   X,
   Maximize2,
   Camera,
-  GraduationCap
+  GraduationCap,
+  Menu
 } from 'lucide-react';
 
 /**
- * Catppuccin Mocha Theme Palette
+ * Catppuccin Mocha Theme (High Contrast)
+ * Adjusted to be "more whiteish" for better readability
  */
 const THEME = {
-  base: '#1e1e2e',    // Main background
-  mantle: '#181825',  // Darker background (sidebar/footer)
-  crust: '#11111b',   // Darkest background
-  text: '#cdd6f4',    // Main text
-  subtext1: '#bac2de', // Secondary text
-  subtext0: '#a6adc8', // Tertiary text
-  overlay2: '#9399b2', // Borders/faint text
-  blue: '#89b4fa',    // Primary accent
-  mauve: '#cba6f7',   // Secondary accent
-  pink: '#f5c2e7',    // Tertiary accent
-  green: '#a6e3a1',   // Success/Good
-  red: '#f38ba8',     // Error/Important
-  yellow: '#f9e2af',  // Warning/Highlight
-  peach: '#fab387',   // Numbers/Special
-  surface0: '#313244', // Card background
-  surface1: '#45475a', // Hover states
-  surface2: '#585b70', // Active states
+  base: '#1e1e2e',      // Main Background
+  mantle: '#181825',    // Sidebar Background
+  surface0: '#313244',  // Cards / Inputs
+  surface1: '#45475a',  // Hovers
+  overlay0: '#6c7086',  // Borders / Subtle text
+  
+  text: '#ffffff',      // Pure White (was #cdd6f4)
+  subtext1: '#e6e9ef',  // Very light gray (was #bac2de)
+  subtext0: '#cdd6f4',  // Light Lavender (was #a6adc8)
+  
+  // Accents
+  blue: '#89b4fa',
+  mauve: '#cba6f7',
+  pink: '#f5c2e7',
+  green: '#a6e3a1',
+  peach: '#fab387',
+  yellow: '#f9e2af',
+  red: '#f38ba8',
 };
 
 // --- Types & Interfaces ---
@@ -152,67 +155,66 @@ const TALKS = [
   }
 ];
 
-// Placeholder images - Replace these URLs with your actual photos
 const GALLERY_IMAGES: GalleryItem[] = [
   {
     id: "g1",
-    src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1080&auto=format&fit=crop",
-    alt: "Starry sky and galaxy",
-    caption: "Analyzing star formation rates in early galaxies.",
-    category: "Research"
+    src: "/images/Ettikkulam_beach.jpeg",
+    alt: "Beach Pic",
+    caption: "A picture I took after arriving home due to the Indo-Pak conflict of 2025",
+    category: "Outings"
   },
   {
     id: "g2",
-    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1080&auto=format&fit=crop",
-    alt: "Coding setup with neovim",
-    caption: "My nightly coding station. Neovim + Tmux on Arch Linux.",
-    category: "Setup"
+    src: "/images/Jama_Masjid.jpeg",
+    alt: "Masjid",
+    caption: "A picture of one of the structures of Jama Masjid during a recent trip",
+    category: "Outings"
   },
   {
     id: "g3",
-    src: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=1080&auto=format&fit=crop",
-    alt: "Physics library",
-    caption: "Late night study sessions at the IISER library.",
-    category: "Campus"
+    src: "/images/Me.jpeg",
+    alt: "Me :)",
+    caption: "A picture of me taken by a friend",
+    category: "Me"
   },
   {
     id: "g4",
-    src: "https://images.unsplash.com/photo-1614726365723-49cfae963c6c?q=80&w=1080&auto=format&fit=crop",
-    alt: "Simulation visualization",
-    caption: "Visualizing hydrodynamical simulation data outputs.",
-    category: "Simulations"
+    src: "/images/Lalbagh_Waterfall.jpeg",
+    alt: "Waterfall",
+    caption: "A picture of waterfall at Lalbagh Bengaluru",
+    category: "Outings"
   },
   {
     id: "g5",
-    src: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1080&auto=format&fit=crop",
-    alt: "Lab Equipment",
-    caption: "Setting up instrumentation for data collection.",
-    category: "Research"
+    src: "/images/Me_Explaining_Work.jpeg",
+    alt: "Me again",
+    caption: "A picture a friend took of me while I was explaining my research proejct to her",
+    category: "Me"
   },
   {
     id: "g6",
-    src: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1080&auto=format&fit=crop",
-    alt: "Circuit Board",
-    caption: "Working on embedded systems for the Robotics Club.",
-    category: "Setup"
+    src: "/images/Kavvayi.jpeg",
+    alt: "Mangroves",
+    caption: "A picture of mangroves near my grandmother's house. Fun fact, you can walk through the water, it's not that deep",
+    category: "Outings"
   }
 ];
 
-// --- Main Components ---
+// --- Components ---
 
 const SectionHeader = ({ title, icon }: { title: string; icon?: React.ReactNode }) => (
   <div className="flex items-center gap-3 mb-8">
     <span style={{ color: THEME.mauve }}>{icon}</span>
-    <h2 className="text-2xl font-bold tracking-tight" style={{ color: THEME.text }}>
+    <h2 className="text-xl font-bold tracking-tight uppercase" style={{ color: THEME.text }}>
       {title}
     </h2>
-    <div className="h-px flex-grow ml-4 opacity-30" style={{ backgroundColor: THEME.surface0 }}></div>
+    <div className="h-px flex-grow ml-4 opacity-30" style={{ backgroundColor: THEME.overlay0 }}></div>
   </div>
 );
 
 const Badge = ({ children, color = THEME.blue }: { children: React.ReactNode; color?: string }) => (
   <span 
-    className="px-2 py-1 rounded text-xs font-medium border transition-colors"
+    className="px-2 py-1 rounded text-xs font-medium border"
     style={{ 
       borderColor: `${color}40`, 
       color: color,
@@ -227,7 +229,7 @@ const Card = ({ children, className = "" }: { children: React.ReactNode; classNa
   <div 
     className={`p-6 rounded-lg border transition-all duration-300 hover:translate-y-[-2px] ${className}`}
     style={{ 
-      backgroundColor: `${THEME.surface0}40`, // Lower opacity for cleaner look
+      backgroundColor: THEME.surface0,
       borderColor: THEME.surface1,
     }}
   >
@@ -239,24 +241,23 @@ export default function Portfolio() {
   const [currentView, setCurrentView] = useState<'portfolio' | 'gallery'>('portfolio');
   const [activeGalleryImage, setActiveGalleryImage] = useState<GalleryItem | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Smooth scroll logic that handles page switching
   const handleNavClick = (target: string) => {
-    
+    setIsMobileMenuOpen(false); // Close mobile menu on click
+
     if (target === 'gallery') {
       setCurrentView('gallery');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      // If we are on gallery page, switch back to portfolio first
       if (currentView === 'gallery') {
         setCurrentView('portfolio');
-        // Small delay to allow render, then scroll
         setTimeout(() => {
           const element = document.getElementById(target);
           if (element) element.scrollIntoView({ behavior: 'smooth' });
         }, 50);
       } else {
-        // We are already on portfolio, just scroll
         const element = document.getElementById(target);
         if (element) element.scrollIntoView({ behavior: 'smooth' });
       }
@@ -268,61 +269,106 @@ export default function Portfolio() {
     ? GALLERY_IMAGES 
     : GALLERY_IMAGES.filter(img => img.category === activeCategory);
 
+  const NavContent = () => (
+    <div className="flex flex-col h-full p-6">
+      <button 
+        onClick={() => handleNavClick('home')} 
+        className="text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity mb-12 text-left" 
+        style={{ color: THEME.text }}
+      >
+        <span style={{color: THEME.mauve}}>~</span>/gokul
+      </button>
+
+      <div className="flex flex-col gap-4 flex-grow">
+        {['About', 'Research', 'Projects', 'Leadership', 'Skills', 'Gallery', 'Contact'].map((item) => (
+          <button
+            key={item}
+            onClick={() => handleNavClick(item.toLowerCase())}
+            className="group relative flex items-center w-fit"
+          >
+            <span className={`text-sm font-medium transition-colors duration-200 ${
+              (currentView === 'gallery' && item === 'Gallery')
+                ? 'font-bold text-blue-300' 
+                : 'opacity-80 group-hover:opacity-100 group-hover:text-white'
+            }`}
+            style={{ 
+              color: (currentView === 'gallery' && item === 'Gallery') ? THEME.blue : THEME.subtext1 
+            }}>
+              {item}
+            </span>
+            <span 
+              className={`absolute -bottom-1 left-0 h-[1px] transition-all duration-300 ease-out ${
+                (currentView === 'gallery' && item === 'Gallery') ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}
+              style={{ backgroundColor: THEME.blue }} 
+            />
+          </button>
+        ))}
+      </div>
+
+      <div className="pt-6 border-t mt-auto" style={{ borderColor: 'transparent' }}>
+         <div className="flex gap-4 opacity-80">
+            <a href="https://github.com/Gokul2406" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+              <Github size={18} color={THEME.subtext0} />
+            </a>
+            <a href="https://www.linkedin.com/in/gokulpb" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+              <Linkedin size={18} color={THEME.subtext0} />
+            </a>
+            <a href="mailto:ms23027@iisermohali.ac.in" className="hover:text-white transition-colors">
+              <Mail size={18} color={THEME.subtext0} />
+            </a>
+         </div>
+         <p className="mt-4 text-[10px]" style={{ color: THEME.overlay0 }}>
+           © 2025 Gokul P Bharathan
+         </p>
+      </div>
+    </div>
+  );
+
   return (
     <div 
-      className="min-h-screen selection:bg-indigo-500/30"
+      className="flex min-h-screen selection:bg-indigo-500/30"
       style={{ 
         backgroundColor: THEME.base, 
         color: THEME.text,
         fontFamily: '"Maple Mono", "JetBrains Mono", "Fira Code", monospace' 
       }}
     >
-      {/* Import JetBrains Mono as fallback if Maple isn't local */}
       <style>
         {`@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');`}
       </style>
 
-      {/* Navigation */}
-      <nav 
-        className="fixed top-0 w-full z-50 backdrop-blur-md border-b"
-        style={{ 
-          backgroundColor: `${THEME.base}dd`, 
-          borderColor: THEME.surface0 
-        }}
+      {/* --- DESKTOP SIDEBAR --- */}
+      <aside 
+        className="hidden md:flex w-64 flex-col fixed inset-y-0 z-50 border-r"
+        style={{ backgroundColor: THEME.mantle, borderColor: 'transparent' }}
       >
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <button 
-            onClick={() => handleNavClick('home')} 
-            className="font-bold text-lg tracking-tighter hover:text-blue-400 transition-colors" 
-            style={{ color: THEME.mauve }}
-          >
-            ~/gokul.phys
-          </button>
-          
-          <div className="hidden md:flex gap-8 text-sm">
-            {['About', 'Research', 'Projects', 'Gallery', 'Contact'].map((item) => (
-              <button
-                key={item}
-                onClick={() => handleNavClick(item.toLowerCase())}
-                className={`hover:text-blue-400 transition-colors ${
-                  (currentView === 'gallery' && item === 'Gallery')
-                    ? 'text-blue-400' 
-                    : 'opacity-70 hover:opacity-100'
-                }`}
-                style={{ color: THEME.text }}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
+        <NavContent />
+      </aside>
+
+      {/* --- MOBILE HEADER --- */}
+      <div 
+        className="md:hidden fixed top-0 w-full h-16 border-b flex items-center justify-between px-6 z-50 backdrop-blur-md"
+        style={{ backgroundColor: `${THEME.base}dd`, borderColor: 'transparent' }}
+      >
+        <span className="font-bold text-lg" style={{ color: THEME.text }}>~/gokul.phys</span>
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} style={{ color: THEME.text }}>
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* --- MOBILE MENU OVERLAY --- */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-40 md:hidden pt-16" style={{ backgroundColor: THEME.base }}>
+          <NavContent />
         </div>
-      </nav>
+      )}
 
       {/* Lightbox Overlay */}
       {activeGalleryImage && (
         <div 
           className="fixed inset-0 z-[60] flex items-center justify-center p-4 animate-in fade-in duration-200"
-          style={{ backgroundColor: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(5px)' }}
+          style={{ backgroundColor: 'rgba(30, 30, 46, 0.95)', backdropFilter: 'blur(5px)' }}
           onClick={() => setActiveGalleryImage(null)}
         >
           <div className="relative max-w-6xl w-full h-full flex flex-col items-center justify-center p-4">
@@ -333,17 +379,16 @@ export default function Portfolio() {
             >
               <X size={32} />
             </button>
-            
             <img 
               src={activeGalleryImage.src} 
               alt={activeGalleryImage.alt}
-              className="max-h-[85vh] max-w-full rounded shadow-2xl object-contain"
+              className="max-h-[85vh] max-w-full rounded shadow-2xl object-contain border"
+              style={{ borderColor: THEME.surface1 }}
               onClick={(e) => e.stopPropagation()} 
             />
-            
             <div 
-              className="mt-6 text-center max-w-2xl px-4 py-3 rounded-lg backdrop-blur-md"
-              style={{ backgroundColor: `${THEME.base}80` }}
+              className="mt-6 text-center max-w-2xl px-4 py-3 rounded"
+              style={{ backgroundColor: THEME.mantle }}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-center gap-2 mb-1">
@@ -361,34 +406,34 @@ export default function Portfolio() {
       )}
 
       {/* Main Content Area */}
-      <main className="pt-32 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
+      <main className="flex-1 md:ml-64 p-6 md:p-16 pt-24 md:pt-16 min-h-screen">
         
         {/* VIEW LOGIC */}
         
         {currentView === 'gallery' ? (
           
           // --- GALLERY PAGE VIEW ---
-          <div className="animate-in fade-in duration-500">
+          <div className="animate-in fade-in duration-500 max-w-5xl mx-auto">
              <header className="mb-12">
                <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: THEME.text }}>
                  Visuals
                </h1>
-               <p className="text-lg opacity-80 max-w-2xl mb-8" style={{ color: THEME.subtext0 }}>
+               <p className="text-lg max-w-2xl mb-8" style={{ color: THEME.subtext1 }}>
                  A collection of snapshots from my research, simulations, and life at IISER Mohali.
                </p>
 
                {/* Category Filter */}
-               <div className="flex flex-wrap gap-2 pb-4 border-b" style={{ borderColor: THEME.surface0 }}>
+               <div className="flex flex-wrap gap-2 pb-4 border-b" style={{ borderColor: THEME.surface1 }}>
                  {categories.map(cat => (
                    <button
                      key={cat}
                      onClick={() => setActiveCategory(cat)}
                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                       activeCategory === cat ? 'translate-y-[-1px]' : 'hover:bg-white/5'
+                       activeCategory === cat ? 'translate-y-[-1px] shadow-sm' : 'hover:opacity-80'
                      }`}
                      style={{ 
-                       backgroundColor: activeCategory === cat ? THEME.blue : 'transparent',
-                       color: activeCategory === cat ? THEME.base : THEME.subtext0,
+                       backgroundColor: activeCategory === cat ? THEME.mauve : 'transparent',
+                       color: activeCategory === cat ? THEME.base : THEME.subtext1,
                        border: activeCategory === cat ? 'none' : `1px solid ${THEME.surface1}`
                      }}
                    >
@@ -403,18 +448,19 @@ export default function Portfolio() {
                 {filteredImages.map((img) => (
                   <div 
                     key={img.id}
-                    className="group relative aspect-[4/5] overflow-hidden rounded-xl cursor-pointer bg-gray-800 break-inside-avoid"
+                    className="group relative aspect-[4/5] overflow-hidden rounded-xl cursor-pointer border hover:border-mauve transition-colors"
+                    style={{ borderColor: THEME.surface1, backgroundColor: THEME.surface0 }}
                     onClick={() => setActiveGalleryImage(img)}
                   >
                     <img 
                       src={img.src} 
                       alt={img.alt} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                      <span className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: THEME.blue }}>{img.category}</span>
-                      <p className="text-sm font-medium text-white leading-relaxed">{img.caption}</p>
-                      <div className="absolute top-4 right-4 p-2 rounded-full bg-black/40 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-all delay-100 translate-y-2 group-hover:translate-y-0 duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-t from-base via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                      <span className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: THEME.mauve }}>{img.category}</span>
+                      <p className="text-sm font-medium leading-relaxed" style={{ color: THEME.text }}>{img.caption}</p>
+                      <div className="absolute top-4 right-4 p-2 rounded-full text-white" style={{ backgroundColor: THEME.surface1 }}>
                         <Maximize2 size={16} />
                       </div>
                     </div>
@@ -428,10 +474,10 @@ export default function Portfolio() {
                </div>
              )}
 
-             <div className="mt-20 pt-10 border-t text-center" style={{ borderColor: THEME.surface0 }}>
+             <div className="mt-20 pt-10 border-t text-center" style={{ borderColor: THEME.surface1 }}>
                 <button 
                   onClick={() => handleNavClick('home')}
-                  className="inline-flex items-center gap-2 text-sm hover:text-blue-400 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm hover:opacity-100 transition-opacity opacity-70"
                   style={{ color: THEME.subtext0 }}
                 >
                   <ArrowLeft size={16} />
@@ -443,35 +489,32 @@ export default function Portfolio() {
         ) : (
           
           // --- MAIN PORTFOLIO VIEW ---
-          <div className="space-y-32 animate-in fade-in duration-500">
+          <div className="space-y-32 animate-in fade-in duration-500 max-w-4xl mx-auto">
             
             {/* Hero Section */}
-            <section id="home" className="pt-10 flex flex-col gap-8 max-w-3xl">
+            <section id="home" className="pt-10 flex flex-col gap-8">
               <div className="space-y-6">
-                <div className="flex items-center gap-3 text-sm mb-2">
-                  <span style={{ color: THEME.green }}>● Available for Research</span>
-                  <span style={{ color: THEME.surface2 }}>|</span>
-                  <span style={{ color: THEME.blue }}>Mohali, IN</span>
+                <div className="flex items-center gap-3 text-sm mb-2 font-medium">
                 </div>
                 
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none">
-                  Hello, I'm <span style={{ color: THEME.blue }}>Gokul</span>.
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none" style={{ color: THEME.text }}>
+                  Hello, I'm <span style={{ color: THEME.mauve }}>Gokul</span>.
                 </h1>
                 
-                <p className="text-xl leading-relaxed opacity-90" style={{ color: THEME.subtext0 }}>
+                <p className="text-xl leading-relaxed max-w-2xl" style={{ color: THEME.subtext1 }}>
                   BS-MS Physics student at IISER Mohali. <br className="hidden md:block"/>
-                  I build software for <span style={{ color: THEME.peach }}>Astrophysics</span> and explore <span style={{ color: THEME.mauve }}>Deep Learning</span>.
+                  I build software for <span style={{ color: THEME.blue }}>Astrophysics</span> and explore <span style={{ color: THEME.pink }}>Deep Learning</span>.
                 </p>
                 
                 <div className="flex gap-4 pt-4">
                   <a href="mailto:ms23027@iisermohali.ac.in" 
-                    className="px-6 py-3 rounded text-sm font-semibold transition-transform hover:-translate-y-1 flex items-center gap-2"
-                    style={{ backgroundColor: THEME.blue, color: THEME.base }}>
+                    className="px-6 py-3 rounded text-sm font-semibold transition-transform hover:-translate-y-1 flex items-center gap-2 shadow-sm"
+                    style={{ backgroundColor: THEME.mauve, color: THEME.base }}>
                     <Mail size={16} />
                     Get in touch
                   </a>
                   <a href="https://github.com/Gokul2406" target="_blank" rel="noreferrer"
-                    className="px-6 py-3 rounded text-sm font-semibold transition-transform hover:-translate-y-1 border flex items-center gap-2"
+                    className="px-6 py-3 rounded text-sm font-semibold transition-transform hover:-translate-y-1 border flex items-center gap-2 hover:bg-white/5"
                     style={{ borderColor: THEME.surface1, color: THEME.text }}>
                     <Github size={16} />
                     GitHub
@@ -483,16 +526,16 @@ export default function Portfolio() {
             {/* About / Research Interests */}
             <section id="about">
               <SectionHeader title="Research Interests" icon={<BookOpen size={20} />} />
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <h3 className="text-lg font-bold" style={{ color: THEME.blue }}>Astrophysics</h3>
-                  <p style={{ color: THEME.subtext0 }} className="leading-relaxed text-sm">
+                  <p style={{ color: THEME.subtext1 }} className="leading-relaxed text-sm">
                     My primary focus lies in Galaxy formation and evolution. I use hydrodynamical simulations to understand AGN feedback mechanisms and how they shape the cosmos.
                   </p>
                 </div>
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold" style={{ color: THEME.mauve }}>Deep Learning</h3>
-                  <p style={{ color: THEME.subtext0 }} className="leading-relaxed text-sm">
+                  <h3 className="text-lg font-bold" style={{ color: THEME.pink }}>Deep Learning</h3>
+                  <p style={{ color: THEME.subtext1 }} className="leading-relaxed text-sm">
                     Bridging the gap between theory and data. I'm exploring Physics Informed Neural Networks (PINNs) to solve differential equations faster than traditional numerical methods.
                   </p>
                 </div>
@@ -506,21 +549,20 @@ export default function Portfolio() {
                 <div className="relative pl-8 border-l" style={{ borderColor: THEME.surface1 }}>
                   {EXPERIENCES.map((exp, index) => (
                     <div key={index} className="mb-12 relative">
-                      <div className="absolute -left-[37px] p-1.5 rounded-full border-4" 
-                          style={{ backgroundColor: THEME.base, borderColor: THEME.surface1 }}>
-                        <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: THEME.blue }} />
+                      <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full border-2" 
+                          style={{ borderColor: THEME.mauve, backgroundColor: THEME.base }}>
                       </div>
                       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
                         <h3 className="text-lg font-bold" style={{ color: THEME.text }}>{exp.role}</h3>
-                        <span className="text-xs opacity-70" style={{ color: THEME.subtext1 }}>{exp.period}</span>
+                        <span className="text-xs font-mono" style={{ color: THEME.subtext0 }}>{exp.period}</span>
                       </div>
-                      <div className="text-sm mb-4 font-semibold opacity-90" style={{ color: THEME.pink }}>
+                      <div className="text-sm mb-4 font-semibold uppercase tracking-wide" style={{ color: THEME.mauve }}>
                         {exp.company}
                       </div>
                       <ul className="space-y-3">
                         {exp.description.map((item, i) => (
-                          <li key={i} className="flex gap-3 items-start text-sm leading-relaxed opacity-80" style={{ color: THEME.subtext0 }}>
-                            <span className="mt-2 w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: THEME.overlay2 }} />
+                          <li key={i} className="flex gap-3 items-start text-sm leading-relaxed" style={{ color: THEME.subtext1 }}>
+                            <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{backgroundColor: THEME.surface1}} />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -538,28 +580,28 @@ export default function Portfolio() {
                 {PROJECTS.map((project, index) => (
                   <Card key={index} className="flex flex-col h-full group">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-lg font-bold group-hover:text-blue-400 transition-colors" style={{ color: THEME.text }}>
+                      <h3 className="text-lg font-bold group-hover:opacity-80 transition-opacity" style={{ color: THEME.text }}>
                         {project.title}
                       </h3>
                       {project.link && (
-                        <a href={project.link} target="_blank" rel="noreferrer" style={{ color: THEME.subtext1 }}>
+                        <a href={project.link} target="_blank" rel="noreferrer" style={{ color: THEME.subtext0 }}>
                           <ExternalLink size={16} />
                         </a>
                       )}
                     </div>
-                    <p className="mb-6 flex-grow text-sm leading-relaxed opacity-80" style={{ color: THEME.subtext0 }}>
+                    <p className="mb-6 flex-grow text-sm leading-relaxed" style={{ color: THEME.subtext1 }}>
                       {project.description}
                     </p>
                     
                     {project.stats && (
-                      <div className="mb-4 text-xs" style={{ color: THEME.green }}>
+                      <div className="mb-4 text-xs font-mono" style={{ color: THEME.green }}>
                         {project.stats}
                       </div>
                     )}
 
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {project.tech.map(t => (
-                        <Badge key={t} color={THEME.mauve}>{t}</Badge>
+                        <Badge key={t}>{t}</Badge>
                       ))}
                     </div>
                   </Card>
@@ -573,17 +615,17 @@ export default function Portfolio() {
                   <div>
                     <SectionHeader title="Community" icon={<Users size={20} />} />
                     <div className="space-y-6">
-                      <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.blue, backgroundColor: `${THEME.surface0}20` }}>
+                      <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.blue, backgroundColor: THEME.surface0 }}>
                           <h3 className="font-bold mb-1 text-sm" style={{ color: THEME.text }}>President</h3>
-                          <p className="text-xs mb-2 opacity-80" style={{ color: THEME.subtext1 }}>Scientific Computational Club, IISER Mohali</p>
+                          <p className="text-xs mb-2" style={{ color: THEME.subtext1 }}>Scientific Computational Club, IISER Mohali</p>
                       </div>
-                      <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.mauve, backgroundColor: `${THEME.surface0}20` }}>
+                      <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.mauve, backgroundColor: THEME.surface0 }}>
                           <h3 className="font-bold mb-1 text-sm" style={{ color: THEME.text }}>Active Member</h3>
-                          <p className="text-xs opacity-80" style={{ color: THEME.subtext1 }}>Robotics and Instrumentation Club</p>
+                          <p className="text-xs" style={{ color: THEME.subtext1 }}>Robotics and Instrumentation Club</p>
                       </div>
-                      <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.peach, backgroundColor: `${THEME.surface0}20` }}>
+                      <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.peach, backgroundColor: THEME.surface0 }}>
                           <h3 className="font-bold mb-1 text-sm" style={{ color: THEME.text }}>INSPIRE-SHE Scholar</h3>
-                          <p className="text-xs opacity-80" style={{ color: THEME.subtext1 }}>Department of Science & Technology India</p>
+                          <p className="text-xs" style={{ color: THEME.subtext1 }}>Department of Science & Technology India</p>
                       </div>
                     </div>
                   </div>
@@ -595,9 +637,9 @@ export default function Portfolio() {
                         <div key={i} className="group">
                           <div className="flex justify-between items-baseline mb-2">
                             <h3 className="font-bold text-sm" style={{ color: THEME.text }}>{talk.title}</h3>
-                            <span className="text-xs font-mono opacity-60" style={{ color: THEME.pink }}>{talk.event}</span>
+                            <span className="text-xs font-mono" style={{ color: THEME.subtext0 }}>{talk.event}</span>
                           </div>
-                          <p className="text-xs leading-relaxed opacity-70" style={{ color: THEME.subtext0 }}>
+                          <p className="text-xs leading-relaxed" style={{ color: THEME.subtext1 }}>
                             {talk.desc}
                           </p>
                         </div>
@@ -609,11 +651,11 @@ export default function Portfolio() {
 
             {/* Skills */}
             <section id="skills">
-              <SectionHeader title="Arsenal" icon={<Terminal size={20} />} />
+              <SectionHeader title="Technologies I Know" icon={<Terminal size={20} />} />
               <div className="grid md:grid-cols-3 gap-8">
                 {SKILLS.map((category, index) => (
                   <div key={index} className="space-y-4">
-                    <div className="flex items-center gap-2 mb-2 opacity-80" style={{ color: THEME.blue }}>
+                    <div className="flex items-center gap-2 mb-2" style={{ color: THEME.mauve }}>
                       {category.icon}
                       <h3 className="font-bold text-sm uppercase tracking-wider">{category.title}</h3>
                     </div>
@@ -622,9 +664,9 @@ export default function Portfolio() {
                         <span 
                           key={skill}
                           className="text-sm transition-colors hover:translate-x-1 duration-200 cursor-default"
-                          style={{ color: THEME.subtext0 }}
+                          style={{ color: THEME.subtext1 }}
                         >
-                          <span style={{ color: THEME.overlay2, marginRight: '8px' }}>▹</span>
+                          <span style={{ color: THEME.overlay0, marginRight: '8px' }}>▹</span>
                           {skill}
                         </span>
                       ))}
@@ -636,15 +678,16 @@ export default function Portfolio() {
 
             {/* Contact */}
             <section id="contact" className="py-12 border-t"
-                    style={{ borderColor: THEME.surface0 }}>
+                    style={{ borderColor: THEME.surface1 }}>
               <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                 <div>
                   <h2 className="text-2xl font-bold mb-2" style={{ color: THEME.text }}>Let's work together.</h2>
-                  <p className="text-sm opacity-60" style={{ color: THEME.subtext0 }}>
+                  <p className="text-sm" style={{ color: THEME.subtext1 }}>
                     Open to research collaborations and OSS contributions.
                   </p>
                 </div>
-                <div className="flex gap-4">
+                {/* Mobile view of social icons (desktop has them in sidebar) */}
+                <div className="flex gap-4 md:hidden">
                     <a href="mailto:ms23027@iisermohali.ac.in" 
                       className="p-3 rounded-full transition-colors hover:bg-white/10"
                       style={{ color: THEME.text }}>
@@ -662,8 +705,8 @@ export default function Portfolio() {
                     </a>
                 </div>
               </div>
-              <div className="mt-12 text-center text-xs opacity-30" style={{ color: THEME.text }}>
-                <p>Designed in Catppuccin Mocha • Typeset in Maple Mono</p>
+              <div className="mt-12 text-center text-xs md:hidden" style={{ color: THEME.subtext0 }}>
+                <p>Built with React & Tailwind • Typeset in Maple Mono</p>
               </div>
             </section>
 
