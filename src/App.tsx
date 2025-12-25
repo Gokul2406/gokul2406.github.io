@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  Github, 
-  Linkedin, 
-  Mail, 
-  BookOpen, 
-  Code, 
-  Terminal, 
-  Cpu, 
-  ExternalLink, 
+import {
+  Github,
+  Linkedin,
+  Mail,
+  BookOpen,
+  Code,
+  Terminal,
+  Cpu,
+  ExternalLink,
   Briefcase,
   Users,
   ArrowLeft,
@@ -15,7 +15,8 @@ import {
   Maximize2,
   Camera,
   GraduationCap,
-  Menu
+  Menu,
+  Search // Added Search icon
 } from 'lucide-react';
 
 /**
@@ -28,11 +29,11 @@ const THEME = {
   surface0: '#313244',  // Cards / Inputs
   surface1: '#45475a',  // Hovers
   overlay0: '#6c7086',  // Borders / Subtle text
-  
+
   text: '#ffffff',      // Pure White (was #cdd6f4)
   subtext1: '#e6e9ef',  // Very light gray (was #bac2de)
   subtext0: '#cdd6f4',  // Light Lavender (was #a6adc8)
-  
+
   // Accents
   blue: '#89b4fa',
   mauve: '#cba6f7',
@@ -108,7 +109,7 @@ const PROJECTS: Project[] = [
     description: "A secure, terminal-based password manager for *nix operating systems built with Rust.",
     tech: ["Rust", "CLI", "Security"],
     stats: "4900+ Downloads",
-    link: "https://github.com/Gokul2406" 
+    link: "https://github.com/Gokul2406"
   },
   {
     title: "Insight: IISER Mohali App",
@@ -202,8 +203,8 @@ const GALLERY_IMAGES: GalleryItem[] = [
 
 // --- Components ---
 
-const SectionHeader = ({ title, icon }: { title: string; icon?: React.ReactNode }) => (
-  <div className="flex items-center gap-3 mb-8">
+const SectionHeader = ({ title, icon, className = "gap-3" }: { title: string; icon?: React.ReactNode; className?: string }) => (
+  <div className={`flex items-center ${className} mb-8`}>
     <span style={{ color: THEME.mauve }}>{icon}</span>
     <h2 className="text-xl font-bold tracking-tight uppercase" style={{ color: THEME.text }}>
       {title}
@@ -213,10 +214,10 @@ const SectionHeader = ({ title, icon }: { title: string; icon?: React.ReactNode 
 );
 
 const Badge = ({ children, color = THEME.blue }: { children: React.ReactNode; color?: string }) => (
-  <span 
+  <span
     className="px-2 py-1 rounded text-xs font-medium border"
-    style={{ 
-      borderColor: `${color}40`, 
+    style={{
+      borderColor: `${color}40`,
       color: color,
       backgroundColor: `${color}10`
     }}
@@ -226,9 +227,9 @@ const Badge = ({ children, color = THEME.blue }: { children: React.ReactNode; co
 );
 
 const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div 
+  <div
     className={`p-6 rounded-lg border transition-all duration-300 hover:translate-y-[-2px] ${className}`}
-    style={{ 
+    style={{
       backgroundColor: THEME.surface0,
       borderColor: THEME.surface1,
     }}
@@ -265,73 +266,93 @@ export default function Portfolio() {
   };
 
   const categories = ['All', ...Array.from(new Set(GALLERY_IMAGES.map(img => img.category)))];
-  const filteredImages = activeCategory === 'All' 
-    ? GALLERY_IMAGES 
+  const filteredImages = activeCategory === 'All'
+    ? GALLERY_IMAGES
     : GALLERY_IMAGES.filter(img => img.category === activeCategory);
 
   const NavContent = () => (
     <div className="flex flex-col h-full p-6">
-      <button 
-        onClick={() => handleNavClick('home')} 
-        className="text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity mb-12 text-left" 
+      <button
+        onClick={() => handleNavClick('home')}
+        className="text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity mb-12 text-left"
         style={{ color: THEME.text }}
       >
-        <span style={{color: THEME.mauve}}>~</span>/gokul
+        <span style={{ color: THEME.mauve }}>~</span>/gokul
       </button>
 
       <div className="flex flex-col gap-4 flex-grow">
-        {['About', 'Research', 'Projects', 'Leadership', 'Skills', 'Gallery', 'Contact'].map((item) => (
-          <button
-            key={item}
-            onClick={() => handleNavClick(item.toLowerCase())}
-            className="group relative flex items-center w-fit"
-          >
-            <span className={`text-sm font-medium transition-colors duration-200 ${
-              (currentView === 'gallery' && item === 'Gallery')
-                ? 'font-bold text-blue-300' 
+        {['About', 'Research', 'Projects', 'Blog', 'Skills', 'Gallery', 'Contact'].map((item) => {
+          if (item === 'Blog') {
+            return (
+              <a
+                key={item}
+                href="https://gokul2406.github.io/Space"
+                className="group relative flex items-center w-fit"
+              >
+                <span
+                  className="text-sm font-medium transition-colors duration-200 opacity-80 group-hover:opacity-100 group-hover:text-white"
+                  style={{ color: THEME.subtext1 }}
+                >
+                  {item}
+                </span>
+                <span
+                  className="absolute -bottom-1 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-300 ease-out"
+                  style={{ backgroundColor: THEME.blue }}
+                />
+              </a>
+            );
+          }
+          return (
+            <button
+              key={item}
+              onClick={() => handleNavClick(item.toLowerCase())}
+              className="group relative flex items-center w-fit"
+            >
+              <span className={`text-sm font-medium transition-colors duration-200 ${(currentView === 'gallery' && item === 'Gallery')
+                ? 'font-bold text-blue-300'
                 : 'opacity-80 group-hover:opacity-100 group-hover:text-white'
-            }`}
-            style={{ 
-              color: (currentView === 'gallery' && item === 'Gallery') ? THEME.blue : THEME.subtext1 
-            }}>
-              {item}
-            </span>
-            <span 
-              className={`absolute -bottom-1 left-0 h-[1px] transition-all duration-300 ease-out ${
-                (currentView === 'gallery' && item === 'Gallery') ? 'w-full' : 'w-0 group-hover:w-full'
-              }`}
-              style={{ backgroundColor: THEME.blue }} 
-            />
-          </button>
-        ))}
+                }`}
+                style={{
+                  color: (currentView === 'gallery' && item === 'Gallery') ? THEME.blue : THEME.subtext1
+                }}>
+                {item}
+              </span>
+              <span
+                className={`absolute -bottom-1 left-0 h-[1px] transition-all duration-300 ease-out ${(currentView === 'gallery' && item === 'Gallery') ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}
+                style={{ backgroundColor: THEME.blue }}
+              />
+            </button>
+          );
+        })}
       </div>
 
       <div className="pt-6 border-t mt-auto" style={{ borderColor: 'transparent' }}>
-         <div className="flex gap-4 opacity-80">
-            <a href="https://github.com/Gokul2406" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-              <Github size={18} color={THEME.subtext0} />
-            </a>
-            <a href="https://www.linkedin.com/in/gokulpb" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-              <Linkedin size={18} color={THEME.subtext0} />
-            </a>
-            <a href="mailto:ms23027@iisermohali.ac.in" className="hover:text-white transition-colors">
-              <Mail size={18} color={THEME.subtext0} />
-            </a>
-         </div>
-         <p className="mt-4 text-[10px]" style={{ color: THEME.overlay0 }}>
-           © 2025 Gokul P Bharathan
-         </p>
+        <div className="flex gap-4 opacity-80">
+          <a href="https://github.com/Gokul2406" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+            <Github size={18} color={THEME.subtext0} />
+          </a>
+          <a href="https://www.linkedin.com/in/gokulpb" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+            <Linkedin size={18} color={THEME.subtext0} />
+          </a>
+          <a href="mailto:ms23027@iisermohali.ac.in" className="hover:text-white transition-colors">
+            <Mail size={18} color={THEME.subtext0} />
+          </a>
+        </div>
+        <p className="mt-4 text-[10px]" style={{ color: THEME.overlay0 }}>
+          © 2025 Gokul P Bharathan
+        </p>
       </div>
     </div>
   );
 
   return (
-    <div 
+    <div
       className="flex min-h-screen selection:bg-indigo-500/30"
-      style={{ 
-        backgroundColor: THEME.base, 
+      style={{
+        backgroundColor: THEME.base,
         color: THEME.text,
-        fontFamily: '"Maple Mono", "JetBrains Mono", "Fira Code", monospace' 
+        fontFamily: '"Maple Mono", "JetBrains Mono", "Fira Code", monospace'
       }}
     >
       <style>
@@ -339,7 +360,7 @@ export default function Portfolio() {
       </style>
 
       {/* --- DESKTOP SIDEBAR --- */}
-      <aside 
+      <aside
         className="hidden md:flex w-64 flex-col fixed inset-y-0 z-50 border-r"
         style={{ backgroundColor: THEME.mantle, borderColor: 'transparent' }}
       >
@@ -347,7 +368,7 @@ export default function Portfolio() {
       </aside>
 
       {/* --- MOBILE HEADER --- */}
-      <div 
+      <div
         className="md:hidden fixed top-0 w-full h-16 border-b flex items-center justify-between px-6 z-50 backdrop-blur-md"
         style={{ backgroundColor: `${THEME.base}dd`, borderColor: 'transparent' }}
       >
@@ -366,27 +387,27 @@ export default function Portfolio() {
 
       {/* Lightbox Overlay */}
       {activeGalleryImage && (
-        <div 
+        <div
           className="fixed inset-0 z-[60] flex items-center justify-center p-4 animate-in fade-in duration-200"
           style={{ backgroundColor: 'rgba(30, 30, 46, 0.95)', backdropFilter: 'blur(5px)' }}
           onClick={() => setActiveGalleryImage(null)}
         >
           <div className="relative max-w-6xl w-full h-full flex flex-col items-center justify-center p-4">
-            <button 
+            <button
               onClick={(e) => { e.stopPropagation(); setActiveGalleryImage(null); }}
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 transition-colors"
               style={{ color: THEME.text }}
             >
               <X size={32} />
             </button>
-            <img 
-              src={activeGalleryImage.src} 
+            <img
+              src={activeGalleryImage.src}
               alt={activeGalleryImage.alt}
               className="max-h-[85vh] max-w-full rounded shadow-2xl object-contain border"
               style={{ borderColor: THEME.surface1 }}
-              onClick={(e) => e.stopPropagation()} 
+              onClick={(e) => e.stopPropagation()}
             />
-            <div 
+            <div
               className="mt-6 text-center max-w-2xl px-4 py-3 rounded"
               style={{ backgroundColor: THEME.mantle }}
               onClick={(e) => e.stopPropagation()}
@@ -407,107 +428,109 @@ export default function Portfolio() {
 
       {/* Main Content Area */}
       <main className="flex-1 md:ml-64 p-6 md:p-16 pt-24 md:pt-16 min-h-screen">
-        
+
         {/* VIEW LOGIC */}
-        
+
         {currentView === 'gallery' ? (
-          
+
           // --- GALLERY PAGE VIEW ---
           <div className="animate-in fade-in duration-500 max-w-5xl mx-auto">
-             <header className="mb-12">
-               <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: THEME.text }}>
-                 Visuals
-               </h1>
-               <p className="text-lg max-w-2xl mb-8" style={{ color: THEME.subtext1 }}>
-                 A collection of snapshots from my research, simulations, and life at IISER Mohali.
-               </p>
+            <header className="mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: THEME.text }}>
+                Visuals
+              </h1>
+              <p className="text-lg max-w-2xl mb-8" style={{ color: THEME.subtext1 }}>
+                A collection of snapshots from my research, simulations, and life at IISER Mohali.
+              </p>
 
-               {/* Category Filter */}
-               <div className="flex flex-wrap gap-2 pb-4 border-b" style={{ borderColor: THEME.surface1 }}>
-                 {categories.map(cat => (
-                   <button
-                     key={cat}
-                     onClick={() => setActiveCategory(cat)}
-                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                       activeCategory === cat ? 'translate-y-[-1px] shadow-sm' : 'hover:opacity-80'
-                     }`}
-                     style={{ 
-                       backgroundColor: activeCategory === cat ? THEME.mauve : 'transparent',
-                       color: activeCategory === cat ? THEME.base : THEME.subtext1,
-                       border: activeCategory === cat ? 'none' : `1px solid ${THEME.surface1}`
-                     }}
-                   >
-                     {cat}
-                   </button>
-                 ))}
-               </div>
-             </header>
-
-             {/* Gallery Grid */}
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredImages.map((img) => (
-                  <div 
-                    key={img.id}
-                    className="group relative aspect-[4/5] overflow-hidden rounded-xl cursor-pointer border hover:border-mauve transition-colors"
-                    style={{ borderColor: THEME.surface1, backgroundColor: THEME.surface0 }}
-                    onClick={() => setActiveGalleryImage(img)}
+              {/* Category Filter */}
+              <div className="flex flex-wrap gap-2 pb-4 border-b" style={{ borderColor: THEME.surface1 }}>
+                {categories.map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeCategory === cat ? 'translate-y-[-1px] shadow-sm' : 'hover:opacity-80'
+                      }`}
+                    style={{
+                      backgroundColor: activeCategory === cat ? THEME.mauve : 'transparent',
+                      color: activeCategory === cat ? THEME.base : THEME.subtext1,
+                      border: activeCategory === cat ? 'none' : `1px solid ${THEME.surface1}`
+                    }}
                   >
-                    <img 
-                      src={img.src} 
-                      alt={img.alt} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-base via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                      <span className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: THEME.mauve }}>{img.category}</span>
-                      <p className="text-sm font-medium leading-relaxed" style={{ color: THEME.text }}>{img.caption}</p>
-                      <div className="absolute top-4 right-4 p-2 rounded-full text-white" style={{ backgroundColor: THEME.surface1 }}>
-                        <Maximize2 size={16} />
-                      </div>
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </header>
+
+            {/* Gallery Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredImages.map((img) => (
+                <div
+                  key={img.id}
+                  className="group relative aspect-[4/5] overflow-hidden rounded-xl cursor-pointer border hover:border-mauve transition-colors"
+                  style={{ borderColor: THEME.surface1, backgroundColor: THEME.surface0 }}
+                  onClick={() => setActiveGalleryImage(img)}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-base via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: THEME.mauve }}>{img.category}</span>
+                    <p className="text-sm font-medium leading-relaxed" style={{ color: THEME.text }}>{img.caption}</p>
+                    <div className="absolute top-4 right-4 p-2 rounded-full text-white" style={{ backgroundColor: THEME.surface1 }}>
+                      <Maximize2 size={16} />
                     </div>
                   </div>
-                ))}
-             </div>
-             
-             {filteredImages.length === 0 && (
-               <div className="py-20 text-center opacity-50">
-                 <p>No images found in this category.</p>
-               </div>
-             )}
+                </div>
+              ))}
+            </div>
 
-             <div className="mt-20 pt-10 border-t text-center" style={{ borderColor: THEME.surface1 }}>
-                <button 
-                  onClick={() => handleNavClick('home')}
-                  className="inline-flex items-center gap-2 text-sm hover:opacity-100 transition-opacity opacity-70"
-                  style={{ color: THEME.subtext0 }}
-                >
-                  <ArrowLeft size={16} />
-                  Return to Portfolio
-                </button>
-             </div>
+            {filteredImages.length === 0 && (
+              <div className="py-20 text-center opacity-50">
+                <p>No images found in this category.</p>
+              </div>
+            )}
+
+            <div className="mt-20 pt-10 border-t text-center" style={{ borderColor: THEME.surface1 }}>
+              <button
+                onClick={() => handleNavClick('home')}
+                className="inline-flex items-center gap-2 text-sm hover:opacity-100 transition-opacity opacity-70"
+                style={{ color: THEME.subtext0 }}
+              >
+                <ArrowLeft size={16} />
+                Return to Portfolio
+              </button>
+            </div>
           </div>
 
         ) : (
-          
+
           // --- MAIN PORTFOLIO VIEW ---
           <div className="space-y-32 animate-in fade-in duration-500 max-w-4xl mx-auto">
-            
+
             {/* Hero Section */}
             <section id="home" className="pt-10 flex flex-col gap-8">
               <div className="space-y-6">
                 <div className="flex items-center gap-3 text-sm mb-2 font-medium">
+                  <span style={{ color: THEME.green }}>● Available for Research</span>
+                  <span style={{ color: THEME.subtext0 }}>|</span>
+                  <span style={{ color: THEME.subtext0 }}>Mohali, IN</span>
                 </div>
-                
+
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none" style={{ color: THEME.text }}>
                   Hello, I'm <span style={{ color: THEME.mauve }}>Gokul</span>.
                 </h1>
-                
+
                 <p className="text-xl leading-relaxed max-w-2xl" style={{ color: THEME.subtext1 }}>
-                  BS-MS Physics student at IISER Mohali. <br className="hidden md:block"/>
+                  BS-MS Physics student at IISER Mohali. <br className="hidden md:block" />
                   I build software for <span style={{ color: THEME.blue }}>Astrophysics</span> and explore <span style={{ color: THEME.pink }}>Deep Learning</span>.
                 </p>
-                
+
                 <div className="flex gap-4 pt-4">
-                  <a href="mailto:ms23027@iisermohali.ac.in" 
+                  <a href="mailto:ms23027@iisermohali.ac.in"
                     className="px-6 py-3 rounded text-sm font-semibold transition-transform hover:-translate-y-1 flex items-center gap-2 shadow-sm"
                     style={{ backgroundColor: THEME.mauve, color: THEME.base }}>
                     <Mail size={16} />
@@ -544,15 +567,16 @@ export default function Portfolio() {
 
             {/* Experience */}
             <section id="research">
-              <SectionHeader title="Experience" icon={<Briefcase size={20} />} />
+              {/* Changed Title to Research Experience and increased gap to gap-6 */}
+              <SectionHeader title="Research Experience" icon={<Search size={20} />} className="gap-6" />
               <div className="space-y-12">
                 <div className="relative pl-8 border-l" style={{ borderColor: THEME.surface1 }}>
                   {EXPERIENCES.map((exp, index) => (
                     <div key={index} className="mb-12 relative">
-                      <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full border-2" 
-                          style={{ borderColor: THEME.mauve, backgroundColor: THEME.base }}>
+                      <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full border-2"
+                        style={{ borderColor: THEME.mauve, backgroundColor: THEME.base }}>
                       </div>
-                      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
+                      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2 ml-3">
                         <h3 className="text-lg font-bold" style={{ color: THEME.text }}>{exp.role}</h3>
                         <span className="text-xs font-mono" style={{ color: THEME.subtext0 }}>{exp.period}</span>
                       </div>
@@ -562,7 +586,7 @@ export default function Portfolio() {
                       <ul className="space-y-3">
                         {exp.description.map((item, i) => (
                           <li key={i} className="flex gap-3 items-start text-sm leading-relaxed" style={{ color: THEME.subtext1 }}>
-                            <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{backgroundColor: THEME.surface1}} />
+                            <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: THEME.surface1 }} />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -592,7 +616,7 @@ export default function Portfolio() {
                     <p className="mb-6 flex-grow text-sm leading-relaxed" style={{ color: THEME.subtext1 }}>
                       {project.description}
                     </p>
-                    
+
                     {project.stats && (
                       <div className="mb-4 text-xs font-mono" style={{ color: THEME.green }}>
                         {project.stats}
@@ -612,46 +636,46 @@ export default function Portfolio() {
             {/* Leadership & Talks */}
             <section id="leadership">
               <div className="grid md:grid-cols-2 gap-12">
-                  <div>
-                    <SectionHeader title="Community" icon={<Users size={20} />} />
-                    <div className="space-y-6">
-                      <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.blue, backgroundColor: THEME.surface0 }}>
-                          <h3 className="font-bold mb-1 text-sm" style={{ color: THEME.text }}>President</h3>
-                          <p className="text-xs mb-2" style={{ color: THEME.subtext1 }}>Scientific Computational Club, IISER Mohali</p>
-                      </div>
-                      <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.mauve, backgroundColor: THEME.surface0 }}>
-                          <h3 className="font-bold mb-1 text-sm" style={{ color: THEME.text }}>Active Member</h3>
-                          <p className="text-xs" style={{ color: THEME.subtext1 }}>Robotics and Instrumentation Club</p>
-                      </div>
-                      <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.peach, backgroundColor: THEME.surface0 }}>
-                          <h3 className="font-bold mb-1 text-sm" style={{ color: THEME.text }}>INSPIRE-SHE Scholar</h3>
-                          <p className="text-xs" style={{ color: THEME.subtext1 }}>Department of Science & Technology India</p>
-                      </div>
+                <div>
+                  <SectionHeader title="Community" icon={<Users size={20} />} />
+                  <div className="space-y-6">
+                    <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.blue, backgroundColor: THEME.surface0 }}>
+                      <h3 className="font-bold mb-1 text-sm" style={{ color: THEME.text }}>President</h3>
+                      <p className="text-xs mb-2" style={{ color: THEME.subtext1 }}>Scientific Computational Club, IISER Mohali</p>
+                    </div>
+                    <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.mauve, backgroundColor: THEME.surface0 }}>
+                      <h3 className="font-bold mb-1 text-sm" style={{ color: THEME.text }}>Active Member</h3>
+                      <p className="text-xs" style={{ color: THEME.subtext1 }}>Robotics and Instrumentation Club</p>
+                    </div>
+                    <div className="p-4 rounded border-l-2" style={{ borderColor: THEME.peach, backgroundColor: THEME.surface0 }}>
+                      <h3 className="font-bold mb-1 text-sm" style={{ color: THEME.text }}>INSPIRE-SHE Scholar</h3>
+                      <p className="text-xs" style={{ color: THEME.subtext1 }}>Department of Science & Technology India</p>
                     </div>
                   </div>
+                </div>
 
-                  <div>
-                    <SectionHeader title="Talks" icon={<GraduationCap size={20} />} />
-                    <div className="space-y-8">
-                      {TALKS.map((talk, i) => (
-                        <div key={i} className="group">
-                          <div className="flex justify-between items-baseline mb-2">
-                            <h3 className="font-bold text-sm" style={{ color: THEME.text }}>{talk.title}</h3>
-                            <span className="text-xs font-mono" style={{ color: THEME.subtext0 }}>{talk.event}</span>
-                          </div>
-                          <p className="text-xs leading-relaxed" style={{ color: THEME.subtext1 }}>
-                            {talk.desc}
-                          </p>
+                <div>
+                  <SectionHeader title="Talks" icon={<GraduationCap size={20} />} />
+                  <div className="space-y-8">
+                    {TALKS.map((talk, i) => (
+                      <div key={i} className="group">
+                        <div className="flex justify-between items-baseline mb-2">
+                          <h3 className="font-bold text-sm" style={{ color: THEME.text }}>{talk.title}</h3>
+                          <span className="text-xs font-mono" style={{ color: THEME.subtext0 }}>{talk.event}</span>
                         </div>
-                      ))}
-                    </div>
+                        <p className="text-xs leading-relaxed" style={{ color: THEME.subtext1 }}>
+                          {talk.desc}
+                        </p>
+                      </div>
+                    ))}
                   </div>
+                </div>
               </div>
             </section>
 
             {/* Skills */}
             <section id="skills">
-              <SectionHeader title="Technologies I Know" icon={<Terminal size={20} />} />
+              <SectionHeader title="Arsenal" icon={<Terminal size={20} />} />
               <div className="grid md:grid-cols-3 gap-8">
                 {SKILLS.map((category, index) => (
                   <div key={index} className="space-y-4">
@@ -661,7 +685,7 @@ export default function Portfolio() {
                     </div>
                     <div className="flex flex-col gap-2">
                       {category.skills.map(skill => (
-                        <span 
+                        <span
                           key={skill}
                           className="text-sm transition-colors hover:translate-x-1 duration-200 cursor-default"
                           style={{ color: THEME.subtext1 }}
@@ -678,7 +702,7 @@ export default function Portfolio() {
 
             {/* Contact */}
             <section id="contact" className="py-12 border-t"
-                    style={{ borderColor: THEME.surface1 }}>
+              style={{ borderColor: THEME.surface1 }}>
               <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                 <div>
                   <h2 className="text-2xl font-bold mb-2" style={{ color: THEME.text }}>Let's work together.</h2>
@@ -688,21 +712,21 @@ export default function Portfolio() {
                 </div>
                 {/* Mobile view of social icons (desktop has them in sidebar) */}
                 <div className="flex gap-4 md:hidden">
-                    <a href="mailto:ms23027@iisermohali.ac.in" 
-                      className="p-3 rounded-full transition-colors hover:bg-white/10"
-                      style={{ color: THEME.text }}>
-                      <Mail size={20} />
-                    </a>
-                    <a href="https://github.com/Gokul2406" target="_blank" rel="noreferrer"
-                      className="p-3 rounded-full transition-colors hover:bg-white/10"
-                      style={{ color: THEME.text }}>
-                      <Github size={20} />
-                    </a>
-                    <a href="https://www.linkedin.com/in/gokulpb" target="_blank" rel="noreferrer"
-                      className="p-3 rounded-full transition-colors hover:bg-white/10"
-                      style={{ color: THEME.text }}>
-                      <Linkedin size={20} />
-                    </a>
+                  <a href="mailto:ms23027@iisermohali.ac.in"
+                    className="p-3 rounded-full transition-colors hover:bg-white/10"
+                    style={{ color: THEME.text }}>
+                    <Mail size={20} />
+                  </a>
+                  <a href="https://github.com/Gokul2406" target="_blank" rel="noreferrer"
+                    className="p-3 rounded-full transition-colors hover:bg-white/10"
+                    style={{ color: THEME.text }}>
+                    <Github size={20} />
+                  </a>
+                  <a href="https://www.linkedin.com/in/gokulpb" target="_blank" rel="noreferrer"
+                    className="p-3 rounded-full transition-colors hover:bg-white/10"
+                    style={{ color: THEME.text }}>
+                    <Linkedin size={20} />
+                  </a>
                 </div>
               </div>
               <div className="mt-12 text-center text-xs md:hidden" style={{ color: THEME.subtext0 }}>
