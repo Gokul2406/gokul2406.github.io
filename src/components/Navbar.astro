@@ -1,0 +1,51 @@
+---
+// src/components/layout/Navbar.astro
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+    pathname === href ? "text-[#7ca982] font-bold" : "";
+---
+
+<nav
+    class="flex w-full flex-col p-5 md:flex-row md:items-center md:justify-center"
+>
+    <div class="flex w-full items-center justify-between md:hidden">
+        <span class="font-bold font-cardo">gokul p bharathan</span>
+        <button id="menu-toggle" class="text-[#243e36]">
+            <svg
+                class="h-8 w-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
+
+    <div
+        id="menu"
+        class="hidden w-full flex-col font-cardo gap-4 pt-4 text-center text-xl md:flex md:w-auto md:flex-row md:gap-12 md:pt-0"
+    >
+        <a href="/" class={isActive("/")}>home</a>
+        <a href="/cv" class={isActive("/cv")}>cv</a>
+        <a href="/projects" class={isActive("/projects")}>projects</a>
+        <a href="/blog" class={isActive("/blog")}>blog</a>
+        <a href="/gallery" class={isActive("/gallery")}>gallery</a>
+    </div>
+</nav>
+
+<hr class="m-auto flex w-4/5 border-[#243e36]/30 md:w-1/2" />
+
+<script>
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("menu");
+
+    toggle?.addEventListener("click", () => {
+        menu?.classList.toggle("hidden");
+        menu?.classList.toggle("flex");
+    });
+</script>

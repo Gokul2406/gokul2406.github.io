@@ -1,0 +1,121 @@
+---
+// src/pages/projects.astro
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+const projects = [
+    {
+        title: "Mapping Lyman Alpha Emissions from Quasars using Broadband Images",
+        type: "Research Project",
+        date: "May 2024 – July 2024",
+        location: "Indian Institute of Astrophysics (IIA)",
+        supervisor: "Dr. Ravi Joshi",
+        description:
+            "Independently developed a pipeline for mapping the Lyman alpha emissions from SDSS quasars using broadband images provided by the Hyper Suprime-Cam Subaru Strategic Program Public Data Release 3 Data",
+        tags: ["Python", "Astronomy Data", "HSC SSP", "Data Stacking"],
+    },
+    {
+        title: "Mapping MgII emissions From DESI Quasars Using Broadband Images",
+        type: "Research Project",
+        date: "June 2025 – July 2025",
+        location: "Indian Institute of Astrophysics (IIA)",
+        supervisor: "Dr. Ravi Joshi",
+        description:
+            "Independently developed a pipeline for mapping the MgII emissions from DESI quasars using broadband images provided by the Hyper Suprime-Cam Subaru Strategic Program Public Data Release 3 Data",
+        tags: ["Python", "Astronomy Data", "HSC SSP", "Data Stacking"],
+    },
+    {
+        title: "Stochastic Methods For Bifurcations In Non-Smooth Dynamical System",
+        type: "Research Project",
+        date: "May 2026 – July 2026",
+        location: "Indian Institute of Technology Madras",
+        supervisor: "Dr. Nidish Narayanaa Balaji",
+        description:
+            "Currently working on developing an analytical theory based on stochastic methods for bifurcations in non-smooth dynamical systems",
+        tags: ["Dynamical Systems", "Stochastic Methods"],
+    },
+    {
+        title: "Fluid Dynamics Based Approach For Real Time Stampede Prediction",
+        type: "Hackathon Project",
+        date: "December 2025 – January 2026",
+        description:
+            "Develoepd a novel method for predicting stampedes using concepts from fluid dynamics. Won 3rd position at the AI Impact India Pre-Summit Hackathon organised by Thapar Institute of Engineering and Technology and University of Queensland",
+        tags: ["Python", "OpenCV"],
+    },
+    {
+        title: "Modelling Spiral Arm Structures In Galaxies As A Cellular Automata Model",
+        type: "Course Project",
+        date: "February 2026",
+        description:
+            "Explored a cellular automata based model to study the spiral arm structures in galaxies as part of the Modelling Complex Systems course at IISER Mohali",
+        tags: ["Julia", "Cellular Automata"],
+    },
+];
+---
+
+<Layout title="Projects">
+    <div class="min-h-screen px-6 py-16 font-sans md:px-12">
+        <div class="mx-auto max-w-5xl">
+            <header class="mb-12 border-b-2 border-[#243E46]/10 pb-8">
+                <h1
+                    class="text-4xl font-extrabold tracking-tight text-[#243E46]"
+                    style="font-family: 'Cardo', serif;"
+                >
+                    Projects Undertaken
+                </h1>
+                <p class="mt-3 text-lg font-light text-[#243E46]/70">
+                    A collection of academic research, course work, and
+                    computational explorations.
+                </p>
+            </header>
+
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+                {
+                    projects.map((project) => (
+                        <article class="flex flex-col rounded-2xl border border-[#243E46]/10 p-6 shadow-sm transition-all duration-300 hover:border-[#243E46]/30 hover:shadow-lg">
+                            <div class="mb-4 flex items-start justify-between">
+                                <span class="rounded-full bg-[#243E46]/10 px-3 py-1 text-[10px] font-bold tracking-widest text-[#243E46] uppercase">
+                                    {project.type}
+                                </span>
+                                <span class="font-mono text-xs text-[#243E46]/50">
+                                    {project.date}
+                                </span>
+                            </div>
+
+                            <h2
+                                class="mb-2 text-xl leading-snug font-bold text-[#243E46]"
+                                style="font-family: 'Cardo', serif;"
+                            >
+                                {project.title}
+                            </h2>
+
+                            {(project.location || project.supervisor) && (
+                                <div class="mb-4 border-l-2 border-[#243E46]/20 pl-3 text-sm text-[#243E46]/80 italic">
+                                    {project.location}
+                                    {project.supervisor && (
+                                        <span class="mt-0.5 block text-xs text-[#243E46]/60 not-italic">
+                                            Supervision: {project.supervisor}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+
+                            <p class="mb-6 flex-grow text-sm leading-relaxed text-[#243E46]/90">
+                                {project.description}
+                            </p>
+
+                            {project.tags && project.tags.length > 0 && (
+                                <div class="mt-auto flex flex-wrap gap-2 border-t border-[#243E46]/5 pt-4">
+                                    {project.tags.map((tag) => (
+                                        <span class="rounded-md border border-[#243E46]/10 bg-[#243E46]/5 px-2.5 py-1 font-mono text-[10px] font-bold text-[#243E46]/70 uppercase">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </article>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</Layout>

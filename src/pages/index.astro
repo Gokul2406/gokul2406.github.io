@@ -1,11 +1,323 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import {
+    Mountain,
+    Gauge,
+    Palette,
+    Clapperboard,
+    Orbit,
+    Cpu,
+    Activity,
+} from "lucide-astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const experiences = [
+    {
+        date: "05/2024 - 07/2024",
+        title: "Research Intern",
+        institution: "Indian Institute of Astrophysics",
+        location: "Bangalore, India",
+        description:
+            "Developed a pipeline for unravelling Lyman $\\alpha$ emission from quasars via broadband continuum subtraction techniques on g, r, i band images from Hyper Suprime-Cam Subaru Strategic Program Public Data Release 3 Images. Also developed a pipeline for estimating the photometric redshifts of galaxies using photometric data from JWST, HST, and Hyper Suprime-Cam Subaru Strategic Program.",
+    },
+    {
+        date: "06/2025 - 08/2025",
+        title: "Research Intern",
+        institution: "Indian Institute of Astrophysics",
+        location: "Bangalore, India",
+        description:
+            "Developed a pipeline to unravel Lyman $\\alpha$ and MgII emissions from quasars in the DESI survey and study their properties.",
+    },
+    {
+        date: "5/2026 - 7/2026",
+        title: "IIT Madras Summer Fellow, Research Intern",
+        institution: "Indian Institute of Technology Madras",
+        location: "Chennai, India",
+        description:
+            "I am working on exploring stochastic methods for analysing bifurcations in non-smooth dynamical systems",
+    },
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <style is:global>
+            @import url("https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap");
+            /* Add Cardo font import if not already present in your project */
+            .profile-img {
+                clip-path: circle();
+            }
+            h2,
+            h3,
+            h4,
+            p {
+                font-family: "Cardo", serif;
+            }
+        </style>
+    </head>
+    <body>
+        <Layout>
+            <div class="relative min-h-screen w-full overflow-x-hidden">
+                <div
+                    class="flex w-full flex-col items-center justify-evenly py-6"
+                >
+                    <div
+                        class="flex w-full max-w-175 flex-col items-center gap-6 sm:flex-row sm:items-center"
+                    >
+                        <div class="flex-shrink-0">
+                            <img
+                                class="profile-img h-36 w-36 sm:h-[202px] sm:w-auto"
+                                src="/images/Me.jpeg"
+                                alt="My image"
+                            />
+                        </div>
+                        <div class="flex flex-col">
+                            <h3
+                                class="w-full text-center text-lg sm:text-right sm:text-xl"
+                            >
+                                Hello, I'm Gokul, a 4th year BS-MS student at
+                                the Indian Institute of Science Education and
+                                Research Mohali, majoring in physics.
+                            </h3>
+                        </div>
+                    </div>
+
+                    <hr class="my-6 h-1 w-64 rounded-4xl bg-[#243E46]" />
+
+                    <div class="flex w-full flex-col items-center p-6">
+                        <div class="w-3/4 text-left">
+                            <h2 class="mb-2 text-3xl font-bold tracking-tight">
+                                research interests
+                            </h2>
+
+                            <div
+                                class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2"
+                            >
+                                <div
+                                    class="rounded-lg border border-gray-200 bg-gray-50/50 p-4"
+                                >
+                                    <div
+                                        class="mb-2 flex items-center gap-2 text-gray-900"
+                                    >
+                                        <Orbit
+                                            size={18}
+                                            class="shrink-0 text-[#243E36]"
+                                        />
+                                        <h4 class="text-lg font-semibold">
+                                            formation and evolution of galaxies
+                                            in early universe
+                                        </h4>
+                                    </div>
+                                    <p
+                                        class="text-md text-justify leading-relaxed text-gray-600"
+                                    >
+                                        I am interested in exploring the
+                                        formation and evolution of galaxies in
+                                        the early universe through
+                                        multi-wavelength studies.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="rounded-lg border border-gray-200 bg-gray-50/50 p-4"
+                                >
+                                    <div
+                                        class="mb-2 flex items-center gap-2 text-gray-900"
+                                    >
+                                        <Cpu
+                                            size={18}
+                                            class="shrink-0 text-[#243E36]"
+                                        />
+                                        <h4 class="text-lg font-semibold">
+                                            Machine Learning In Astrophysics
+                                        </h4>
+                                    </div>
+                                    <p
+                                        class="text-md text-justify leading-relaxed text-gray-600"
+                                    >
+                                        I am interested in exploring the
+                                        application of machine learning concepts
+                                        in Astrophysics
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="rounded-lg border border-gray-200 bg-gray-50/50 p-4"
+                                >
+                                    <div class="mb-2 flex items-center gap-2">
+                                        <Activity
+                                            size={18}
+                                            class="shrink-0 text-[#243E36]"
+                                        />
+                                        <h4 class="text-lg font-semibold">
+                                            Complex Systems & Dynamics
+                                        </h4>
+                                    </div>
+                                    <p
+                                        class="text-md text-justify leading-relaxed text-gray-600"
+                                    >
+                                        Simulating collective behavior,
+                                        networks, and structural vibrations
+                                        through computational fluid frameworks,
+                                        coupled oscillator dynamics, and
+                                        stochastic modeling.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex w-full flex-col items-center p-6">
+                        <div class="w-3/4 text-left">
+                            <h2 class="mb-12 text-3xl font-bold tracking-tight">
+                                research experience
+                            </h2>
+                            <div class="relative ml-4 border-l border-gray-300">
+                                {
+                                    experiences.map((exp) => (
+                                        <div class="relative mb-12 pl-6">
+                                            <div class="absolute top-1.5 -left-[6px] h-3 w-3 rounded-full bg-[#243e36] ring-4 ring-white" />
+                                            <div class="mb-2">
+                                                <span class="rounded px-2 py-0.5 text-sm font-semibold text-gray-500">
+                                                    {exp.date}
+                                                </span>
+                                            </div>
+                                            <div class="rounded-lg p-5 shadow-sm transition-shadow duration-200 hover:shadow-md">
+                                                <h3 class="text-xl font-bold text-gray-900">
+                                                    {exp.title}
+                                                </h3>
+                                                <div class="mt-1 mb-3 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-sm text-gray-600">
+                                                    <span class="font-medium text-[#7ca982]">
+                                                        {exp.institution}
+                                                    </span>
+                                                    <span class="text-[#7ca982] italic">
+                                                        &bull; {exp.location}
+                                                    </span>
+                                                </div>
+                                                <p class="text-justify text-lg leading-relaxed text-gray-700">
+                                                    {exp.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex w-full flex-col items-center p-6">
+                <div class="max-w-3/4 text-left">
+                    <h2 class="mb-6 text-3xl font-bold tracking-tight">
+                        non-academic stuff
+                    </h2>
+                    <p class="mb-8 text-lg text-gray-600">
+                        these are some interests of mine that helps me stay sane
+                        in the chaotic world
+                    </p>
+
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <div
+                            class="flex items-start gap-3 rounded-lg border border-gray-200 bg-gray-50/50 p-4"
+                        >
+                            <div>
+                                <div
+                                    class="mb-2 flex items-center gap-2 text-gray-900"
+                                >
+                                    <Mountain
+                                        size={18}
+                                        class="shrink-0 text-[#243E36]"
+                                    />
+                                    <h4 class="text-base font-semibold">
+                                        going on treks & travelling
+                                    </h4>
+                                </div>
+                                <p
+                                    class="text-md mt-1 leading-relaxed text-gray-600"
+                                >
+                                    i have recently started gaining an interest
+                                    of going on treks. i shall update the blog
+                                    section sharing some of my experiences soon
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="flex items-start gap-3 rounded-lg border border-gray-200 bg-gray-50/50 p-4"
+                        >
+                            <div>
+                                <div
+                                    class="mb-2 flex items-center gap-2 text-gray-900"
+                                >
+                                    <Gauge
+                                        size={18}
+                                        class="shrink-0 text-[#243E36]"
+                                    />
+                                    <h4 class="text-base font-semibold">
+                                        motorsports & football
+                                    </h4>
+                                </div>
+                                <p
+                                    class="text-md mt-1 leading-relaxed text-gray-600"
+                                >
+                                    i love spending my weekends watching grand
+                                    prix and some football matches. i also love
+                                    playing football.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="flex items-start gap-3 rounded-lg border border-gray-200 bg-gray-50/50 p-4"
+                        >
+                            <div>
+                                <div
+                                    class="mb-2 flex items-center gap-2 text-gray-900"
+                                >
+                                    <Palette
+                                        size={18}
+                                        class="shrink-0 text-[#243E36]"
+                                    />
+                                    <h4 class="text-base font-semibold">
+                                        drawing & painting
+                                    </h4>
+                                </div>
+                                <p
+                                    class="text-md mt-1 leading-relaxed text-gray-600"
+                                >
+                                    i draw and paint for fun :)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="flex items-start gap-3 rounded-lg border border-gray-200 bg-gray-50/50 p-4"
+                        >
+                            <div>
+                                <div
+                                    class="mb-2 flex items-center gap-2 text-gray-900"
+                                >
+                                    <Clapperboard
+                                        size={18}
+                                        class="shrink-0 text-[#243E36]"
+                                    />
+                                    <h4 class="text-base font-semibold">
+                                        watching movies & tv shows
+                                    </h4>
+                                </div>
+                                <p
+                                    class="text-md mt-1 leading-relaxed text-gray-600"
+                                >
+                                    i enjoy watching movies and tv shows, i
+                                    don't really have a type though, i just
+                                    watch whatever i feel like.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    </body>
+</html>
