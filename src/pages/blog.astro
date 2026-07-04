@@ -1,20 +1,73 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+
+const allPosts = await getCollection("blog");
+
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
 ---
 
-<Layout title="Blog">
-    <div class="min-h-screen px-6 py-16 font-sans md:px-12">
-        <div class="mx-auto max-w-5xl">
-            <header class="mb-12 border-b-2 border-[#243E46]/10 pb-8">
-                <h1
-                    class="text-4xl font-cardo font-extrabold tracking-tight text-[#243E46]"
-                >
-                    blog
-                </h1>
-            </header>
-            <p class="text-lg font-cardo text-[#243E46]/80">
-                I shall soon be adding blog posts here :)
+<Layout title="Gokul's Blog">
+  <main class="max-w-7xl mx-auto min-h-screen px-4 sm:px-6 lg:px-8 py-10 font-cardo ">
+
+    <section class="text-center mb-12">
+      <h1
+        class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight"
+      >
+        welcome to my blog
+      </h1>
+
+      <p class="mt-4 text-gray-600 max-w-2xl mx-auto text-lg sm:text-base">
+      i write about my travels and other experiences. soon will be adding some technical content as well !
+      </p>
+    </section>
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
+    >
+      {sortedPosts.map((post) => (
+        <a
+          href={`/blog/${post.id.replace(".md", "")}/`}
+          class="group flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+        >
+          <img
+            src={`https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(
+              post.data.title
+            )}`}
+            alt={`Cover image for ${post.data.title}`}
+            loading="lazy"
+            class="h-44 sm:h-48 md:h-52 w-full bg-gray-100 object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+
+          <div class="flex flex-1 flex-col p-5">
+            <span
+              class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#243e36]"
+            >
+              {post.data.pubDate.toLocaleDateString()}
+            </span>
+
+            <h2
+              class="mt-2 text-xl font-bold text-gray-900 transition-colors group-hover:text-[#7ca982]"
+            >
+              {post.data.title}
+            </h2>
+
+            <p class="mt-3 text-sm sm:text-base text-gray-600 line-clamp-3">
+              {post.data.description}
             </p>
-        </div>
+
+            <div class="mt-auto pt-5">
+              <span
+                class="inline-flex items-center font-semibold text-[#7ca982] group-hover:translate-x-1 transition-transform"
+              >
+                Read article →
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
     </div>
+  </main>
 </Layout>
