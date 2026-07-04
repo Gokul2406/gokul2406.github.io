@@ -1,7 +1,7 @@
 ---
 title: 'A Short Trip To Paithalmala'
 pubDate: 2025-12-12
-description: "This is my first post about physics and programming."
+description: "A blog about my trip to Paithalmala"
 author: "Gokul P Bharathan"
 ---
 

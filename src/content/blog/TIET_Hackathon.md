@@ -1,7 +1,7 @@
 ---
 title: 'When 2 Physicists Went For A Tech Hackathon'
 pubDate: 2026-01-31
-description: "This is my first post about physics and programming."
+description: "A blog about my hackathon at Thapar Institute Of Enginnering and Technology"
 author: "Gokul P Bharathan"
 ---
 
