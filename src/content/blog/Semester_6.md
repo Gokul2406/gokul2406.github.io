@@ -1,6 +1,6 @@
 ---
 title: 'Semester 6'
-pubDate: 2025-12-12
+pubDate: 2026-06-04
 description: "This is my first post about physics and programming."
 author: "Gokul P Bharathan"
 ---
